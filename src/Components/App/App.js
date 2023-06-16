@@ -9,8 +9,9 @@ class App extends React.Component {
     super(props);
     this.state = {
       searchResults: [{name: 'Worm Song', artist: 'Liberty Cage', album: 'New Beef EP', id: 1}, 
-      {name: 'Little Star', artist: 'Liberty Cage', album: 'New Beef EP', id: 2},
-      {name: 'Fever Pitch', artist: 'Liberty Cage', album: 'New Beef EP', id: 3}],
+        {name: 'Little Star', artist: 'Liberty Cage', album: 'New Beef EP', id: 2},
+        {name: 'Fever Pitch', artist: 'Liberty Cage', album: 'New Beef EP', id: 3},
+        {name: 'Mutagen Anthem', artist:'Mutagen', album: 'Cool Industrial Shart', id: 'balls'}],
       playlistName: 'Simon\'s Best Tunes',
       playlistTracks: [
         {name: 'Milker', artist: 'Liberty Cage', album: 'Artificial Harmonies', id: 69},
@@ -21,10 +22,33 @@ class App extends React.Component {
         {name: 'Juicy Juicy Green Grass', artist: 'Peter Combe', album: 'Toffee Apple', id: 'baa'}
       ]
     };
+    
+    this.addTrack = this.addTrack.bind(this);
+    this.removeTrack = this.removeTrack.bind(this);
+    this.updatePlaylistName = this.updatePlaylistName.bind(this);
+    this.savePlaylist = this.savePlaylist.bind(this);
   }
 
   addTrack(track) {
-    
+    let tracks = this.state.playlistTracks;
+    if(tracks.find(savedTrack => savedTrack.id === track.id))
+      return;
+
+    tracks.push(track);
+    this.setState({playlistTracks: tracks});
+  }
+
+  removeTrack(track) {
+    let tracks = this.state.playlistTracks.filter(removedTrack => removedTrack.id !== track.id);
+    this.setState({playlistTracks: tracks});
+  }
+
+  updatePlaylistName(name) {
+    this.setState({playlistName: name});
+  }
+
+  savePlaylist() {
+    const trackUris = this.state.playlistTracks.map(track => track.uri);
   }
 
   render() {
@@ -34,8 +58,14 @@ class App extends React.Component {
         <div className="App">
           {/* <SearchBar /> */}
           <div className="App-playlist">
-            <SearchResults searchResults={this.state.searchResults} />
-            <Playlist playlist={this.state.playlist} playlistTracks={this.state.playlistTracks} />
+            <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} />
+            <Playlist
+              playlist={this.state.playlistName}
+              playlistTracks={this.state.playlistTracks}
+              onRemove={this.removeTrack}
+              onNameChange={this.updatePlaylistName}
+              onSave={this.savePlaylist}
+            />
           </div>
         </div>
       </div>
