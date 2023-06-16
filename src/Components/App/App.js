@@ -3,6 +3,7 @@ import './App.css';
 
 import Playlist from '../Playlist/Playlist';
 import SearchResults from '../SearchResults/SearchResults';
+import SearchBar from '../SearchBar/SearchBar';
 
 class App extends React.Component {
   constructor(props) {
@@ -21,12 +22,13 @@ class App extends React.Component {
         {name: 'Fuzzlove', artist:'Lost Sock Army', album: 'Pandas With Uzis', id: 99},
         {name: 'Juicy Juicy Green Grass', artist: 'Peter Combe', album: 'Toffee Apple', id: 'baa'}
       ]
-    };
+    }
     
     this.addTrack = this.addTrack.bind(this);
     this.removeTrack = this.removeTrack.bind(this);
     this.updatePlaylistName = this.updatePlaylistName.bind(this);
     this.savePlaylist = this.savePlaylist.bind(this);
+    this.search = this.search.bind(this);
   }
 
   addTrack(track) {
@@ -51,12 +53,16 @@ class App extends React.Component {
     const trackUris = this.state.playlistTracks.map(track => track.uri);
   }
 
+  search(searchTerm) {
+    console.log(searchTerm);
+  }
+
   render() {
     return (
       <div>
         <h1>Ja<span className="highlight">mmm</span>ing</h1>
         <div className="App">
-          {/* <SearchBar /> */}
+          <SearchBar onSearch={this.search} />
           <div className="App-playlist">
             <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} />
             <Playlist
