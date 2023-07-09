@@ -1,0 +1,9 @@
+.PlaylistFinder {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 40%;
+  width: 30%;
+  height: 25%;
+  background-color: #010c3f;
+}

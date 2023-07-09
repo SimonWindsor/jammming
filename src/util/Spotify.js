@@ -14,7 +14,7 @@ const Spotify = {
       token = tokenMatch[1];
       const expiresIn = Number(expiryMatch[1]);
 
-      window.setTimeout(() => token = '', expiresIn * 1000);
+      window.setTimeout(() => token = '', expiresIn * 3600);
       window.history.pushState('Access Token', null, '/');
       return token;
     } else {
@@ -37,7 +37,8 @@ const Spotify = {
       name: track.name,
       artist: track.artists[0].name,
       album: track.album.name,
-      uri: track.uri
+      uri: track.uri,
+      href: track.href
     }));
   },
 

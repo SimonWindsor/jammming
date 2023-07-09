@@ -1,0 +1,9 @@
+.LoadingIcon {
+  height: 100px;
+  width: 100px;
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  background-image: url(loader.gif);
+  background-size: cover;
+}
